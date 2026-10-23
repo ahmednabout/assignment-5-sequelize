@@ -1,0 +1,19 @@
+const { DataTypes, Model } = require("sequelize");
+const sequelize = require("../config/database");
+
+class Post extends Model {}
+// Required: Posts model using Model.init()
+Post.init({
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  title: { type: DataTypes.STRING, allowNull: false },
+  content: { type: DataTypes.TEXT, allowNull: false },
+  userId: { type: DataTypes.INTEGER, allowNull: false },
+  createdAt: { type: DataTypes.DATE, allowNull: false },
+  updatedAt: { type: DataTypes.DATE, allowNull: false }
+}, {
+  sequelize,
+  modelName: "Post",
+  paranoid: true // Soft delete: deletedAt is set instead of removing the row
+});
+
+module.exports = Post;
